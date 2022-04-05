@@ -7,7 +7,7 @@ namespace Mail
 {
     class program
     {
-        
+
         public static void Main()
         {
             MimeMessage message = new MimeMessage();
@@ -17,20 +17,20 @@ namespace Mail
             Console.Write("почта получателя: ");
             string email = Console.ReadLine();
 
-            if(email.Contains("@") || email.Contains("."))
+            if (email.Contains("@") || email.Contains("."))
             {
 
-                message.From.Add(new MailboxAddress("Digital Days", "mailkittestcsharp@gmail.com")); //отправитель   // почта отправителя
+                message.From.Add(new MailboxAddress("Имя отправителя", "Почта отправителя")); //отправитель   // почта отправителя
                 message.To.Add(MailboxAddress.Parse(email));//получатель
-                message.ReplyTo.Add(new MailboxAddress("Support", "mailkittestcsharp@gmail.com")); // Загаловок отправителя при ответе на пмсьмо   // почта для ответа на письмо
-                message.Subject = "Welcome!"; // тема 
+                message.ReplyTo.Add(new MailboxAddress("Имя отправителя", "Почта отправителя")); // Загаловок отправителя при ответе на пмсьмо   // почта для ответа на письмо
+                message.Subject = "Тема"; // тема 
 
 
 
 
                 // отправка текста в формате HTML
 
-                
+
                 bodyBuilderHTML.HtmlBody = "<b>Test HTML TEXT</b>"; // пример текста
                 message.Body = bodyBuilderHTML.ToMessageBody(); // передаем наш текст
 
@@ -42,9 +42,9 @@ namespace Mail
                 SmtpClient smtp = new SmtpClient();
                 try
                 {
-                    
+
                     smtp.Connect("smtp.gmail.com", 465, true); // Подключение    1)адресс smpt 2) порт 3) SSL подключение
-                    smtp.Authenticate("mailkittestcsharp@gmail.com", password.Mailpass); // авторизация    1) почта 2) пароль от нее
+                    smtp.Authenticate("Логин почты", "Пароль"); // авторизация    1) почта 2) пароль от нее
                     smtp.Send(message); // отправка 
                     Console.WriteLine($"Сообщение было отправлено на адресс: {email}");
                 }
@@ -60,7 +60,8 @@ namespace Mail
                     smtp.Dispose();
                 }
 
-            } else
+            }
+            else
             {
                 Console.WriteLine("Ошибка!");
             }
